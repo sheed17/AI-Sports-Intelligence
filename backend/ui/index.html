@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>AI Film Room</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --surface-2: #eef3f6;
+      --line: #d7dde3;
+      --text: #18212b;
+      --muted: #617080;
+      --blue: #2364aa;
+      --green: #18794e;
+      --amber: #9a6700;
+      --red: #b42318;
+      --shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      min-height: 36px;
+      padding: 0 12px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #ffffff;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--text);
+      padding: 9px 10px;
+      min-height: 38px;
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    header {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--line);
+      background: #111827;
+      color: #ffffff;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      background: #23a36f;
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 750;
+    }
+
+    h2 {
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 720;
+    }
+
+    h3 {
+      font-size: 13px;
+      line-height: 1.3;
+      font-weight: 720;
+    }
+
+    .subtitle {
+      color: #cbd5e1;
+      font-size: 12px;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .header-actions a {
+      color: #dbeafe;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 320px minmax(420px, 1fr) 360px;
+      gap: 14px;
+      padding: 14px;
+      min-height: calc(100vh - 58px);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-body {
+      padding: 14px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .row.wrap {
+      flex-wrap: wrap;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--surface-2);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .status.done { background: #e7f6ee; color: var(--green); }
+    .status.processing, .status.running { background: #eaf1fb; color: var(--blue); }
+    .status.failed { background: #fee4e2; color: var(--red); }
+    .status.pending, .status.uploaded { background: #fff4d6; color: var(--amber); }
+
+    .list {
+      display: grid;
+      gap: 8px;
+      max-height: 326px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .video-row {
+      width: 100%;
+      text-align: left;
+      display: grid;
+      gap: 5px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: none;
+    }
+
+    .video-row.active {
+      border-color: var(--blue);
+      background: #f3f8ff;
+    }
+
+    .video-name {
+      font-weight: 720;
+      overflow-wrap: anywhere;
+    }
+
+    .video-meta, .muted {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: #ffffff;
+      min-height: 70px;
+    }
+
+    .metric .value {
+      margin-top: 6px;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      padding: 10px 8px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      background: #fafbfc;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .table-wrap {
+      max-height: 390px;
+      overflow: auto;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 0 8px;
+      font-size: 12px;
+      font-weight: 720;
+      background: var(--surface-2);
+    }
+
+    .pill.shot { background: #fee4e2; color: var(--red); }
+    .pill.turnover { background: #fff4d6; color: var(--amber); }
+    .pill.pass { background: #eaf1fb; color: var(--blue); }
+    .pill.dribble { background: #e7f6ee; color: var(--green); }
+    .pill.save { background: #ede9fe; color: #5b21b6; }
+    .pill.buildup { background: #e0f2fe; color: #075985; }
+
+    .clip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 10px;
+      max-height: 380px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .clip {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .clip video {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0f172a;
+    }
+
+    .clip-info {
+      padding: 9px 10px 10px;
+      display: grid;
+      gap: 3px;
+    }
+
+    .answer {
+      min-height: 180px;
+      max-height: 420px;
+      overflow: auto;
+      white-space: pre-wrap;
+      line-height: 1.45;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fbfcfd;
+    }
+
+    .evidence-list {
+      display: grid;
+      gap: 6px;
+      max-height: 160px;
+      overflow: auto;
+    }
+
+    .evidence-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 6px;
+      font-size: 12px;
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: var(--blue);
+      transition: width 180ms ease;
+    }
+
+    .toast {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      max-width: min(420px, calc(100vw - 32px));
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
+      padding: 12px 14px;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(16, 24, 40, 0.16);
+      color: var(--text);
+      display: none;
+    }
+
+    .empty {
+      color: var(--muted);
+      padding: 18px;
+      text-align: center;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      background: #fbfcfd;
+    }
+
+    @media (max-width: 1180px) {
+      main {
+        grid-template-columns: 300px minmax(420px, 1fr);
+      }
+      .right-col {
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      header {
+        height: auto;
+        min-height: 58px;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 14px;
+      }
+      main {
+        grid-template-columns: 1fr;
+        padding: 10px;
+      }
+      .right-col {
+        grid-template-columns: 1fr;
+      }
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+      .row {
+        align-items: stretch;
+      }
+      .row button {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="mark">FR</div>
+      <div>
+        <h1>AI Film Room</h1>
+        <p class="subtitle" id="active-video-label">No video selected</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="/docs" target="_blank" rel="noreferrer">Swagger</a>
+      <button id="refresh-button" title="Refresh data">Refresh</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="stack">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Videos</h2>
+          <span class="status" id="video-count">0</span>
+        </div>
+        <div class="panel-body stack">
+          <form class="stack" id="upload-form">
+            <div class="field">
+              <label for="video-file">Upload</label>
+              <input id="video-file" type="file" accept="video/*">
+            </div>
+            <div class="row">
+              <button class="primary" type="submit" id="upload-button">Upload</button>
+              <button type="button" id="process-button" disabled>Process</button>
+            </div>
+          </form>
+
+          <div class="stack">
+            <div class="row" style="justify-content: space-between;">
+              <span class="muted" id="job-label">Job idle</span>
+              <span class="muted" id="job-percent">0%</span>
+            </div>
+            <div class="progress" aria-label="Job progress">
+              <div class="progress-bar" id="job-progress"></div>
+            </div>
+          </div>
+
+          <div class="list" id="video-list"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Model</h2>
+          <span class="status done" id="model-status">evals</span>
+        </div>
+        <div class="panel-body stack">
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="label">Classifier F1</div>
+              <div class="value" id="metric-f1">--</div>
+            </div>
+            <div class="metric">
+              <div class="label">Retrieval</div>
+              <div class="value" id="metric-retrieval">--</div>
+            </div>
+            <div class="metric">
+              <div class="label">Grounded</div>
+              <div class="value" id="metric-grounded">--</div>
+            </div>
+          </div>
+          <p class="muted" id="model-note">Synthetic labels for portfolio classifier metrics.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Events</h2>
+          <div class="row">
+            <select id="event-filter" aria-label="Event filter">
+              <option value="">All</option>
+              <option value="pass">Pass</option>
+              <option value="shot">Shot</option>
+              <option value="dribble">Dribble</option>
+              <option value="turnover">Turnover</option>
+              <option value="save">Save</option>
+              <option value="buildup">Buildup</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 92px;">Time</th>
+                <th style="width: 120px;">Type</th>
+                <th style="width: 92px;">Conf</th>
+                <th style="width: 92px;">Track</th>
+                <th>Window</th>
+              </tr>
+            </thead>
+            <tbody id="events-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Clips</h2>
+          <span class="status" id="clip-count">0</span>
+        </div>
+        <div class="panel-body">
+          <div class="clip-grid" id="clip-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack right-col">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Ask</h2>
+          <span class="status" id="ask-status">ready</span>
+        </div>
+        <div class="panel-body stack">
+          <div class="field">
+            <label for="question">Question</label>
+            <textarea id="question">When did the attack break down?</textarea>
+          </div>
+          <div class="row">
+            <button class="primary" id="ask-button">Ask</button>
+          </div>
+          <div class="answer" id="answer">Select a processed video and ask a question.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Evidence</h2>
+          <span class="status" id="evidence-count">0</span>
+        </div>
+        <div class="panel-body">
+          <div class="evidence-list" id="evidence-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const state = {
+      videos: [],
+      selectedVideoId: null,
+      pollTimer: null
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function unwrap(payload) {
+      if (payload && Object.prototype.hasOwnProperty.call(payload, "data")) {
+        if (payload.error) {
+          throw new Error(payload.error.message || "Request failed");
+        }
+        return payload.data;
+      }
+      return payload;
+    }
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, options);
+      const isJson = (response.headers.get("content-type") || "").includes("application/json");
+      const payload = isJson ? await response.json() : await response.text();
+      if (!response.ok) {
+        const message = isJson && payload.error ? payload.error.message : response.statusText;
+        throw new Error(message);
+      }
+      return unwrap(payload);
+    }
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.style.display = "block";
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        toast.style.display = "none";
+      }, 4200);
+    }
+
+    function fmtTime(seconds) {
+      const total = Math.max(0, Math.floor(Number(seconds) || 0));
+      const minutes = String(Math.floor(total / 60)).padStart(2, "0");
+      const secs = String(total % 60).padStart(2, "0");
+      return `${minutes}:${secs}`;
+    }
+
+    function fmtNumber(value, digits = 2) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return "--";
+      return Number(value).toFixed(digits);
+    }
+
+    function statusClass(status) {
+      return `status ${String(status || "").toLowerCase()}`;
+    }
+
+    async function loadVideos(selectFirst = false) {
+      const payload = await fetch("/videos").then((r) => r.json());
+      const videos = unwrap(payload);
+      state.videos = videos;
+      $("video-count").textContent = String(videos.length);
+
+      if (!state.selectedVideoId && videos.length && selectFirst) {
+        state.selectedVideoId = videos[0].id;
+      }
+
+      renderVideos();
+      if (state.selectedVideoId) {
+        await loadVideoDetails();
+      }
+    }
+
+    function renderVideos() {
+      const list = $("video-list");
+      list.innerHTML = "";
+
+      if (!state.videos.length) {
+        list.innerHTML = '<div class="empty">No videos</div>';
+        $("process-button").disabled = true;
+        return;
+      }
+
+      for (const video of state.videos) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `video-row ${video.id === state.selectedVideoId ? "active" : ""}`;
+        button.innerHTML = `
+          <span class="video-name">${escapeHtml(video.filename)}</span>
+          <span class="${statusClass(video.status)}">${escapeHtml(video.status)}</span>
+          <span class="video-meta">${fmtNumber(video.duration_s, 1)}s | ${video.width || "--"}x${video.height || "--"} | ${video.fps || "--"} fps</span>
+        `;
+        button.addEventListener("click", async () => {
+          state.selectedVideoId = video.id;
+          renderVideos();
+          await loadVideoDetails();
+        });
+        list.appendChild(button);
+      }
+
+      const selected = state.videos.find((v) => v.id === state.selectedVideoId);
+      $("active-video-label").textContent = selected
+        ? `${selected.filename} | ${selected.status}`
+        : "No video selected";
+      $("process-button").disabled = !selected || selected.status === "processing";
+    }
+
+    async function loadVideoDetails() {
+      await Promise.all([loadStatus(), loadEvents(), loadClips()]);
+    }
+
+    async function loadStatus() {
+      if (!state.selectedVideoId) return;
+      const status = await api(`/videos/${state.selectedVideoId}/status`);
+      const job = status.job;
+      const progress = job ? job.progress : 0;
+      $("job-progress").style.width = `${progress}%`;
+      $("job-percent").textContent = `${progress}%`;
+      $("job-label").textContent = job
+        ? `${job.status}${job.current_step ? ` | ${job.current_step}` : ""}`
+        : status.video_status;
+
+      if (job && ["pending", "running"].includes(job.status)) {
+        startPolling();
+      } else {
+        stopPolling();
+      }
+    }
+
+    async function loadEvents() {
+      const tbody = $("events-body");
+      tbody.innerHTML = "";
+      if (!state.selectedVideoId) return;
+
+      const type = $("event-filter").value;
+      const query = type ? `?event_type=${encodeURIComponent(type)}&limit=100` : "?limit=100";
+      const payload = await fetch(`/videos/${state.selectedVideoId}/events${query}`).then((r) => r.json());
+      const events = unwrap(payload);
+
+      if (!events.length) {
+        tbody.innerHTML = '<tr><td colspan="5"><div class="empty">No events</div></td></tr>';
+        return;
+      }
+
+      for (const event of events) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${fmtTime(event.start_time_s)}</td>
+          <td><span class="pill ${event.event_type}">${escapeHtml(event.event_type)}</span></td>
+          <td>${fmtNumber(event.confidence, 2)}</td>
+          <td>${event.nearest_track_id ?? "--"}</td>
+          <td>${fmtNumber(event.start_time_s, 1)}s - ${fmtNumber(event.end_time_s, 1)}s</td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+
+    async function loadClips() {
+      const grid = $("clip-grid");
+      grid.innerHTML = "";
+      if (!state.selectedVideoId) return;
+
+      const payload = await fetch(`/videos/${state.selectedVideoId}/clips`).then((r) => r.json());
+      const clips = unwrap(payload);
+      $("clip-count").textContent = String(clips.length);
+
+      if (!clips.length) {
+        grid.innerHTML = '<div class="empty">No clips</div>';
+        return;
+      }
+
+      for (const clip of clips) {
+        const node = document.createElement("article");
+        node.className = "clip";
+        node.innerHTML = `
+          <video controls preload="metadata" src="/clips/${clip.id}/stream"></video>
+          <div class="clip-info">
+            <h3>${fmtTime(clip.start_time_s)} - ${fmtTime(clip.end_time_s)}</h3>
+            <span class="muted">${fmtNumber(clip.duration_s, 1)}s clip</span>
+          </div>
+        `;
+        grid.appendChild(node);
+      }
+    }
+
+    async function loadEvals() {
+      const summary = await api("/evals/summary");
+      const classifier = summary.classifier || {};
+      const retrieval = summary.retrieval || {};
+      const groundedness = summary.groundedness || {};
+
+      $("metric-f1").textContent = classifier.test_macro_f1 == null
+        ? "--"
+        : fmtNumber(classifier.test_macro_f1, 2);
+      $("metric-retrieval").textContent = retrieval.overall_score == null
+        ? "--"
+        : fmtNumber(retrieval.overall_score, 2);
+      $("metric-grounded").textContent = groundedness.score == null
+        ? "--"
+        : fmtNumber(groundedness.score, 2);
+      $("model-note").textContent = classifier.note || "Model eval artifacts not found.";
+    }
+
+    async function uploadVideo(event) {
+      event.preventDefault();
+      const input = $("video-file");
+      if (!input.files.length) {
+        showToast("Choose a video file first.");
+        return;
+      }
+
+      $("upload-button").disabled = true;
+      const formData = new FormData();
+      formData.append("file", input.files[0]);
+
+      try {
+        const response = await fetch("/videos/upload", { method: "POST", body: formData });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error?.message || "Upload failed");
+        const video = unwrap(payload);
+        state.selectedVideoId = video.id;
+        input.value = "";
+        await loadVideos();
+        showToast("Video uploaded.");
+      } catch (error) {
+        showToast(error.message);
+      } finally {
+        $("upload-button").disabled = false;
+      }
+    }
+
+    async function processVideo() {
+      if (!state.selectedVideoId) return;
+      $("process-button").disabled = true;
+      try {
+        await api(`/videos/${state.selectedVideoId}/process`, { method: "POST" });
+        showToast("Processing started.");
+        startPolling();
+        await loadVideos();
+        await loadStatus();
+      } catch (error) {
+        showToast(error.message);
+        $("process-button").disabled = false;
+      }
+    }
+
+    function startPolling() {
+      if (state.pollTimer) return;
+      state.pollTimer = window.setInterval(async () => {
+        try {
+          await loadVideos();
+          await loadStatus();
+          const selected = state.videos.find((v) => v.id === state.selectedVideoId);
+          if (selected && selected.status === "done") {
+            stopPolling();
+            await loadVideoDetails();
+          }
+        } catch (error) {
+          showToast(error.message);
+        }
+      }, 3500);
+    }
+
+    function stopPolling() {
+      if (!state.pollTimer) return;
+      window.clearInterval(state.pollTimer);
+      state.pollTimer = null;
+    }
+
+    async function askQuestion() {
+      if (!state.selectedVideoId) {
+        showToast("Select a video first.");
+        return;
+      }
+
+      $("ask-button").disabled = true;
+      $("ask-status").className = "status running";
+      $("ask-status").textContent = "running";
+      $("answer").textContent = "Thinking...";
+
+      try {
+        const result = await api(`/videos/${state.selectedVideoId}/ask`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: $("question").value })
+        });
+        $("answer").textContent = result.answer;
+        renderEvidence(result.evidence || []);
+        $("ask-status").className = "status done";
+        $("ask-status").textContent = result.intent || "done";
+      } catch (error) {
+        $("answer").textContent = error.message;
+        $("ask-status").className = "status failed";
+        $("ask-status").textContent = "failed";
+      } finally {
+        $("ask-button").disabled = false;
+      }
+    }
+
+    function renderEvidence(evidence) {
+      $("evidence-count").textContent = String(evidence.length);
+      const list = $("evidence-list");
+      list.innerHTML = "";
+      if (!evidence.length) {
+        list.innerHTML = '<div class="empty">No evidence</div>';
+        return;
+      }
+      for (const item of evidence) {
+        const node = document.createElement("div");
+        node.className = "evidence-item";
+        node.innerHTML = `
+          <span>${fmtTime(item.start_time_s)} ${escapeHtml(item.event_type)}</span>
+          <span>${fmtNumber(item.confidence, 2)} | T${item.nearest_track_id ?? "--"}</span>
+        `;
+        list.appendChild(node);
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    async function refreshAll() {
+      try {
+        await Promise.all([loadVideos(true), loadEvals()]);
+      } catch (error) {
+        showToast(error.message);
+      }
+    }
+
+    $("upload-form").addEventListener("submit", uploadVideo);
+    $("process-button").addEventListener("click", processVideo);
+    $("refresh-button").addEventListener("click", refreshAll);
+    $("event-filter").addEventListener("change", loadEvents);
+    $("ask-button").addEventListener("click", askQuestion);
+
+    refreshAll();
+  </script>
+</body>
+</html>

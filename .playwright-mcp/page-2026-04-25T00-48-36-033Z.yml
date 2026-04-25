@@ -1,0 +1,200 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: FR
+      - generic [ref=e5]:
+        - heading "AI Film Room" [level=1] [ref=e6]
+        - paragraph [ref=e7]: match_clip.mp4 | done
+    - generic [ref=e8]:
+      - link "Swagger" [ref=e9] [cursor=pointer]:
+        - /url: /docs
+      - button "Refresh" [ref=e10] [cursor=pointer]
+  - main [ref=e11]:
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - heading "Videos" [level=2] [ref=e15]
+          - generic [ref=e16]: "1"
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - generic [ref=e20]: Upload
+              - button "Upload" [ref=e21]
+            - generic [ref=e22]:
+              - button "Upload" [ref=e23] [cursor=pointer]
+              - button "Process" [ref=e24] [cursor=pointer]
+          - generic [ref=e25]:
+            - generic [ref=e26]:
+              - generic [ref=e27]: done | complete
+              - generic [ref=e28]: 100%
+            - generic "Job progress" [ref=e29]
+          - button "match_clip.mp4 done 118.5s | 1280x720 | 50 fps" [ref=e85] [cursor=pointer]:
+            - generic [ref=e86]: match_clip.mp4
+            - generic [ref=e87]: done
+            - generic [ref=e88]: 118.5s | 1280x720 | 50 fps
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - heading "Model" [level=2] [ref=e32]
+          - generic [ref=e33]: evals
+        - generic [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]:
+              - generic [ref=e37]: Classifier F1
+              - generic [ref=e38]: "1.00"
+            - generic [ref=e39]:
+              - generic [ref=e40]: Retrieval
+              - generic [ref=e41]: "0.56"
+            - generic [ref=e42]:
+              - generic [ref=e43]: Grounded
+              - generic [ref=e44]: "1.00"
+          - paragraph [ref=e45]: Synthetic-label metrics are suitable for this portfolio MVP's model smoke/eval story; replace data/features/synthetic with SoccerNet/manual annotations for real model validity.
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - heading "Events" [level=2] [ref=e49]
+          - combobox "Event filter" [ref=e51]:
+            - option "All" [selected]
+            - option "Pass"
+            - option "Shot"
+            - option "Dribble"
+            - option "Turnover"
+            - option "Save"
+            - option "Buildup"
+        - table [ref=e53]:
+          - rowgroup [ref=e54]:
+            - row "Time Type Conf Track Window" [ref=e55]:
+              - columnheader "Time" [ref=e56]
+              - columnheader "Type" [ref=e57]
+              - columnheader "Conf" [ref=e58]
+              - columnheader "Track" [ref=e59]
+              - columnheader "Window" [ref=e60]
+          - rowgroup [ref=e89]:
+            - row "00:04 pass 0.82 3 4.5s - 6.0s" [ref=e90]:
+              - cell "00:04" [ref=e91]
+              - cell "pass" [ref=e92]:
+                - generic [ref=e93]: pass
+              - cell "0.82" [ref=e94]
+              - cell "3" [ref=e95]
+              - cell "4.5s - 6.0s" [ref=e96]
+            - row "00:11 dribble 0.76 7 11.2s - 13.8s" [ref=e97]:
+              - cell "00:11" [ref=e98]
+              - cell "dribble" [ref=e99]:
+                - generic [ref=e100]: dribble
+              - cell "0.76" [ref=e101]
+              - cell "7" [ref=e102]
+              - cell "11.2s - 13.8s" [ref=e103]
+            - row "00:24 turnover 0.81 3 24.1s - 26.0s" [ref=e104]:
+              - cell "00:24" [ref=e105]
+              - cell "turnover" [ref=e106]:
+                - generic [ref=e107]: turnover
+              - cell "0.81" [ref=e108]
+              - cell "3" [ref=e109]
+              - cell "24.1s - 26.0s" [ref=e110]
+            - row "00:33 buildup 0.71 12 33.0s - 37.5s" [ref=e111]:
+              - cell "00:33" [ref=e112]
+              - cell "buildup" [ref=e113]:
+                - generic [ref=e114]: buildup
+              - cell "0.71" [ref=e115]
+              - cell "12" [ref=e116]
+              - cell "33.0s - 37.5s" [ref=e117]
+            - row "00:47 shot 0.88 5 47.3s - 49.0s" [ref=e118]:
+              - cell "00:47" [ref=e119]
+              - cell "shot" [ref=e120]:
+                - generic [ref=e121]: shot
+              - cell "0.88" [ref=e122]
+              - cell "5" [ref=e123]
+              - cell "47.3s - 49.0s" [ref=e124]
+            - row "00:49 save 0.79 1 49.0s - 50.5s" [ref=e125]:
+              - cell "00:49" [ref=e126]
+              - cell "save" [ref=e127]:
+                - generic [ref=e128]: save
+              - cell "0.79" [ref=e129]
+              - cell "1" [ref=e130]
+              - cell "49.0s - 50.5s" [ref=e131]
+            - row "00:58 pass 0.73 8 58.2s - 59.8s" [ref=e132]:
+              - cell "00:58" [ref=e133]
+              - cell "pass" [ref=e134]:
+                - generic [ref=e135]: pass
+              - cell "0.73" [ref=e136]
+              - cell "8" [ref=e137]
+              - cell "58.2s - 59.8s" [ref=e138]
+            - row "01:12 turnover 0.69 11 72.5s - 74.2s" [ref=e139]:
+              - cell "01:12" [ref=e140]
+              - cell "turnover" [ref=e141]:
+                - generic [ref=e142]: turnover
+              - cell "0.69" [ref=e143]
+              - cell "11" [ref=e144]
+              - cell "72.5s - 74.2s" [ref=e145]
+            - row "01:28 dribble 0.84 7 88.0s - 91.0s" [ref=e146]:
+              - cell "01:28" [ref=e147]
+              - cell "dribble" [ref=e148]:
+                - generic [ref=e149]: dribble
+              - cell "0.84" [ref=e150]
+              - cell "7" [ref=e151]
+              - cell "88.0s - 91.0s" [ref=e152]
+            - row "01:43 shot 0.91 5 103.5s - 105.0s" [ref=e153]:
+              - cell "01:43" [ref=e154]
+              - cell "shot" [ref=e155]:
+                - generic [ref=e156]: shot
+              - cell "0.91" [ref=e157]
+              - cell "5" [ref=e158]
+              - cell "103.5s - 105.0s" [ref=e159]
+      - generic [ref=e61]:
+        - generic [ref=e62]:
+          - heading "Clips" [level=2] [ref=e63]
+          - generic [ref=e64]: "10"
+        - generic [ref=e160]:
+          - article [ref=e161]:
+            - generic [ref=e163]:
+              - heading "00:03 - 00:07" [level=3] [ref=e164]
+              - generic [ref=e165]: 4.5s clip
+          - article [ref=e166]:
+            - generic [ref=e168]:
+              - heading "00:09 - 00:15" [level=3] [ref=e169]
+              - generic [ref=e170]: 5.6s clip
+          - article [ref=e171]:
+            - generic [ref=e173]:
+              - heading "00:22 - 00:27" [level=3] [ref=e174]
+              - generic [ref=e175]: 4.9s clip
+          - article [ref=e176]:
+            - generic [ref=e178]:
+              - heading "00:31 - 00:39" [level=3] [ref=e179]
+              - generic [ref=e180]: 7.5s clip
+          - article [ref=e181]:
+            - generic [ref=e183]:
+              - heading "00:45 - 00:50" [level=3] [ref=e184]
+              - generic [ref=e185]: 4.7s clip
+          - article [ref=e186]:
+            - generic [ref=e188]:
+              - heading "00:47 - 00:52" [level=3] [ref=e189]
+              - generic [ref=e190]: 4.5s clip
+          - article [ref=e191]:
+            - generic [ref=e193]:
+              - heading "00:56 - 01:01" [level=3] [ref=e194]
+              - generic [ref=e195]: 4.6s clip
+          - article [ref=e196]:
+            - generic [ref=e198]:
+              - heading "01:11 - 01:15" [level=3] [ref=e199]
+              - generic [ref=e200]: 4.7s clip
+          - article [ref=e201]:
+            - generic [ref=e203]:
+              - heading "01:26 - 01:32" [level=3] [ref=e204]
+              - generic [ref=e205]: 6.0s clip
+          - article [ref=e206]:
+            - generic [ref=e208]:
+              - heading "01:42 - 01:46" [level=3] [ref=e209]
+              - generic [ref=e210]: 4.5s clip
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - generic [ref=e68]:
+          - heading "Ask" [level=2] [ref=e69]
+          - generic [ref=e70]: running
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - generic [ref=e73]: Question
+            - textbox "Question" [ref=e74]: When did the attack break down?
+          - button "Ask" [disabled] [ref=e76]
+          - generic [ref=e77]: Thinking...
+      - generic [ref=e79]:
+        - heading "Evidence" [level=2] [ref=e80]
+        - generic [ref=e81]: "0"

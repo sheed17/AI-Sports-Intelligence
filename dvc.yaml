@@ -1,0 +1,92 @@
+stages:
+  extract_frames:
+    cmd: python -c "
+      from cv.extract_frames import extract_frames;
+      import glob, os;
+      [extract_frames(v, f'data/processed/{os.path.splitext(os.path.basename(v))[0]}/frames', sample_rate=${params.yaml:extract_frames.sample_rate})
+       for v in glob.glob('data/raw_videos/*.mp4')]
+      "
+    deps:
+      - cv/extract_frames.py
+      - data/raw_videos/
+    params:
+      - params.yaml:
+          - extract_frames.sample_rate
+    outs:
+      - data/processed/
+
+  detect:
+    cmd: python -c "
+      import json, glob, os
+      from cv.detect_objects import run_detection
+      for frames_dir in glob.glob('data/processed/*/frames'):
+          manifest = json.load(open(os.path.join(frames_dir, 'manifest.json')))
+          frames = [(f['frame_index'], f['timestamp_s'], f['file_path']) for f in manifest['frames']]
+          dets = run_detection(frames, model_name='${params.yaml:detect.model}',
+                               confidence_threshold=${params.yaml:detect.confidence_threshold})
+          import pickle
+          os.makedirs(os.path.dirname(frames_dir), exist_ok=True)
+          pickle.dump(dets, open(frames_dir.replace('/frames', '/detections.pkl'), 'wb'))
+      "
+    deps:
+      - cv/detect_objects.py
+      - data/processed/
+    params:
+      - params.yaml:
+          - detect.model
+          - detect.confidence_threshold
+    outs:
+      - data/processed/
+
+  generate_features:
+    cmd: python -c "
+      import glob, os, json, pickle
+      from cv.track_objects import run_tracking
+      from cv.estimate_possession import estimate_possession
+      from cv.generate_features import build_feature_matrix, save_features
+      for det_path in glob.glob('data/processed/*/detections.pkl'):
+          video_dir = os.path.dirname(det_path)
+          video_id = os.path.basename(video_dir)
+          dets = pickle.load(open(det_path, 'rb'))
+          manifest = json.load(open(os.path.join(video_dir, 'frames', 'manifest.json')))
+          meta = manifest['meta']
+          dets, _ = run_tracking(dets, meta['width'], meta['height'])
+          poss = estimate_possession(dets)
+          features, frame_meta = build_feature_matrix(dets, poss, meta['width'], meta['height'], meta['fps'])
+          save_features(features, frame_meta, f'data/features/{video_id}')
+      "
+    deps:
+      - cv/track_objects.py
+      - cv/estimate_possession.py
+      - cv/generate_features.py
+      - data/processed/
+    outs:
+      - data/features/
+
+  train:
+    cmd: python ml/train.py --params params.yaml
+    deps:
+      - ml/train.py
+      - ml/models/lstm_classifier.py
+      - ml/datasets/event_dataset.py
+      - ml/features.py
+      - data/features/
+      - data/annotations/
+    params:
+      - params.yaml:
+          - train
+    outs:
+      - ml/artifacts/best_model.pth
+    metrics:
+      - ml/artifacts/metrics.json:
+          cache: false
+
+  evaluate:
+    cmd: python evals/eval_event_classifier.py --features-dir data/features --annotations-dir data/annotations
+    deps:
+      - evals/eval_event_classifier.py
+      - ml/artifacts/best_model.pth
+      - data/features/
+    outs:
+      - ml/artifacts/confusion_matrix.png:
+          cache: false

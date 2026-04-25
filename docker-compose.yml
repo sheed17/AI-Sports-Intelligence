@@ -1,0 +1,119 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-filmroom}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-filmroom}
+      POSTGRES_DB: ${POSTGRES_DB:-filmroom}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-filmroom}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app/backend
+      - ./cv:/app/cv
+      - ./ml:/app/ml
+      - ./evals:/app/evals
+      - ./tests:/app/tests
+      - ./data:/app/data
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://filmroom:filmroom@postgres:5432/filmroom
+      - SYNC_DATABASE_URL=postgresql://filmroom:filmroom@postgres:5432/filmroom
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - DATA_DIR=/app/data
+      - ENVIRONMENT=development
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.worker
+    volumes:
+      - ./backend:/app/backend
+      - ./cv:/app/cv
+      - ./ml:/app/ml
+      - ./evals:/app/evals
+      - ./tests:/app/tests
+      - ./data:/app/data
+      - ./params.yaml:/app/params.yaml
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://filmroom:filmroom@postgres:5432/filmroom
+      - SYNC_DATABASE_URL=postgresql://filmroom:filmroom@postgres:5432/filmroom
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - DATA_DIR=/app/data
+      - ENVIRONMENT=development
+      - MLFLOW_TRACKING_URI=file:///app/mlruns
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A backend.workers.celery_app worker --loglevel=info --concurrency=2
+
+  flower:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    ports:
+      - "5555:5555"
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    depends_on:
+      - redis
+    command: celery -A backend.workers.celery_app flower --port=5555
+    profiles:
+      - dev
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.18.0
+    ports:
+      - "5001:5001"
+    volumes:
+      - mlflow_data:/mlflow
+    environment:
+      - MLFLOW_BACKEND_STORE_URI=sqlite:////mlflow/mlflow.db
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=/mlflow/artifacts
+    command: mlflow server --host 0.0.0.0 --port 5001 --backend-store-uri sqlite:////mlflow/mlflow.db --default-artifact-root /mlflow/artifacts
+    profiles:
+      - dev
+
+volumes:
+  postgres_data:
+  mlflow_data:

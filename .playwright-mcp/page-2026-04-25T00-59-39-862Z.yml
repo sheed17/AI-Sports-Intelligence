@@ -1,0 +1,672 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: FR
+      - generic [ref=e5]:
+        - heading "AI Film Room" [level=1] [ref=e6]
+        - paragraph [ref=e7]: match_clip.mp4 | done
+    - generic [ref=e8]:
+      - link "Swagger" [ref=e9] [cursor=pointer]:
+        - /url: /docs
+      - button "Refresh" [ref=e10] [cursor=pointer]
+  - main [ref=e11]:
+    - generic [ref=e12]:
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - heading "Videos" [level=2] [ref=e15]
+          - generic [ref=e16]: "1"
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - generic [ref=e19]:
+              - generic [ref=e20]: Upload
+              - button "Upload" [ref=e21]
+            - generic [ref=e22]:
+              - button "Upload" [ref=e23] [cursor=pointer]
+              - button "Process" [ref=e24] [cursor=pointer]
+          - generic [ref=e25]:
+            - generic [ref=e26]:
+              - generic [ref=e27]: done | complete
+              - generic [ref=e28]: 100%
+            - generic "Job progress" [ref=e29]
+          - button "match_clip.mp4 done 118.5s | 1280x720 | 50 fps" [ref=e32] [cursor=pointer]:
+            - generic [ref=e33]: match_clip.mp4
+            - generic [ref=e34]: done
+            - generic [ref=e35]: 118.5s | 1280x720 | 50 fps
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - heading "Model" [level=2] [ref=e38]
+          - generic [ref=e39]: evals
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e42]:
+              - generic [ref=e43]: Classifier F1
+              - generic [ref=e44]: "1.00"
+            - generic [ref=e45]:
+              - generic [ref=e46]: Retrieval
+              - generic [ref=e47]: "0.56"
+            - generic [ref=e48]:
+              - generic [ref=e49]: Grounded
+              - generic [ref=e50]: "1.00"
+          - paragraph [ref=e51]: Synthetic-label metrics are suitable for this portfolio MVP's model smoke/eval story; replace data/features/synthetic with SoccerNet/manual annotations for real model validity.
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - heading "Events" [level=2] [ref=e55]
+          - combobox "Event filter" [ref=e57]:
+            - option "All" [selected]
+            - option "Pass"
+            - option "Shot"
+            - option "Dribble"
+            - option "Turnover"
+            - option "Save"
+            - option "Buildup"
+        - table [ref=e59]:
+          - rowgroup [ref=e60]:
+            - row "Time Type Conf Track Window" [ref=e61]:
+              - columnheader "Time" [ref=e62]
+              - columnheader "Type" [ref=e63]
+              - columnheader "Conf" [ref=e64]
+              - columnheader "Track" [ref=e65]
+              - columnheader "Window"
+          - rowgroup [ref=e66]:
+            - row "00:02 buildup 1.00 -- 2.4s - 4.1s" [ref=e67]:
+              - cell "00:02" [ref=e68]
+              - cell "buildup" [ref=e69]:
+                - generic [ref=e70]: buildup
+              - cell "1.00" [ref=e71]
+              - cell "--" [ref=e72]
+              - cell "2.4s - 4.1s"
+            - row "00:04 pass 0.82 3 4.5s - 6.0s" [ref=e73]:
+              - cell "00:04" [ref=e74]
+              - cell "pass" [ref=e75]:
+                - generic [ref=e76]: pass
+              - cell "0.82" [ref=e77]
+              - cell "3" [ref=e78]
+              - cell "4.5s - 6.0s"
+            - row "00:04 buildup 1.00 -- 4.8s - 6.5s" [ref=e79]:
+              - cell "00:04" [ref=e80]
+              - cell "buildup" [ref=e81]:
+                - generic [ref=e82]: buildup
+              - cell "1.00" [ref=e83]
+              - cell "--" [ref=e84]
+              - cell "4.8s - 6.5s"
+            - row "00:07 buildup 1.00 -- 7.2s - 8.9s" [ref=e85]:
+              - cell "00:07" [ref=e86]
+              - cell "buildup" [ref=e87]:
+                - generic [ref=e88]: buildup
+              - cell "1.00" [ref=e89]
+              - cell "--" [ref=e90]
+              - cell "7.2s - 8.9s"
+            - row "00:09 buildup 1.00 -- 9.0s - 10.7s" [ref=e91]:
+              - cell "00:09" [ref=e92]
+              - cell "buildup" [ref=e93]:
+                - generic [ref=e94]: buildup
+              - cell "1.00" [ref=e95]
+              - cell "--" [ref=e96]
+              - cell "9.0s - 10.7s"
+            - row "00:11 dribble 0.76 7 11.2s - 13.8s" [ref=e97]:
+              - cell "00:11" [ref=e98]
+              - cell "dribble" [ref=e99]:
+                - generic [ref=e100]: dribble
+              - cell "0.76" [ref=e101]
+              - cell "7" [ref=e102]
+              - cell "11.2s - 13.8s"
+            - row "00:12 buildup 0.86 -- 12.0s - 13.7s" [ref=e103]:
+              - cell "00:12" [ref=e104]
+              - cell "buildup" [ref=e105]:
+                - generic [ref=e106]: buildup
+              - cell "0.86" [ref=e107]
+              - cell "--" [ref=e108]
+              - cell "12.0s - 13.7s"
+            - row "00:13 buildup 1.00 -- 13.8s - 15.5s" [ref=e109]:
+              - cell "00:13" [ref=e110]
+              - cell "buildup" [ref=e111]:
+                - generic [ref=e112]: buildup
+              - cell "1.00" [ref=e113]
+              - cell "--" [ref=e114]
+              - cell "13.8s - 15.5s"
+            - row "00:15 buildup 1.00 -- 15.6s - 17.3s" [ref=e115]:
+              - cell "00:15" [ref=e116]
+              - cell "buildup" [ref=e117]:
+                - generic [ref=e118]: buildup
+              - cell "1.00" [ref=e119]
+              - cell "--" [ref=e120]
+              - cell "15.6s - 17.3s"
+            - row "00:17 buildup 1.00 -- 17.4s - 19.1s" [ref=e121]:
+              - cell "00:17" [ref=e122]
+              - cell "buildup" [ref=e123]:
+                - generic [ref=e124]: buildup
+              - cell "1.00" [ref=e125]
+              - cell "--" [ref=e126]
+              - cell "17.4s - 19.1s"
+            - row "00:19 buildup 0.99 -- 19.2s - 20.9s" [ref=e127]:
+              - cell "00:19" [ref=e128]
+              - cell "buildup" [ref=e129]:
+                - generic [ref=e130]: buildup
+              - cell "0.99" [ref=e131]
+              - cell "--" [ref=e132]
+              - cell "19.2s - 20.9s"
+            - row "00:21 buildup 0.99 -- 21.0s - 22.7s" [ref=e133]:
+              - cell "00:21" [ref=e134]
+              - cell "buildup" [ref=e135]:
+                - generic [ref=e136]: buildup
+              - cell "0.99" [ref=e137]
+              - cell "--" [ref=e138]
+              - cell "21.0s - 22.7s"
+            - row "00:24 buildup 1.00 -- 24.0s - 25.7s" [ref=e139]:
+              - cell "00:24" [ref=e140]
+              - cell "buildup" [ref=e141]:
+                - generic [ref=e142]: buildup
+              - cell "1.00" [ref=e143]
+              - cell "--" [ref=e144]
+              - cell "24.0s - 25.7s"
+            - row "00:24 turnover 0.81 3 24.1s - 26.0s" [ref=e145]:
+              - cell "00:24" [ref=e146]
+              - cell "turnover" [ref=e147]:
+                - generic [ref=e148]: turnover
+              - cell "0.81" [ref=e149]
+              - cell "3" [ref=e150]
+              - cell "24.1s - 26.0s"
+            - row "00:26 buildup 1.00 -- 26.1s - 27.8s" [ref=e151]:
+              - cell "00:26" [ref=e152]
+              - cell "buildup" [ref=e153]:
+                - generic [ref=e154]: buildup
+              - cell "1.00" [ref=e155]
+              - cell "--" [ref=e156]
+              - cell "26.1s - 27.8s"
+            - row "00:28 buildup 1.00 -- 28.8s - 30.5s" [ref=e157]:
+              - cell "00:28" [ref=e158]
+              - cell "buildup" [ref=e159]:
+                - generic [ref=e160]: buildup
+              - cell "1.00" [ref=e161]
+              - cell "--" [ref=e162]
+              - cell "28.8s - 30.5s"
+            - row "00:30 dribble 1.00 -- 30.3s - 32.0s" [ref=e163]:
+              - cell "00:30" [ref=e164]
+              - cell "dribble" [ref=e165]:
+                - generic [ref=e166]: dribble
+              - cell "1.00" [ref=e167]
+              - cell "--" [ref=e168]
+              - cell "30.3s - 32.0s"
+            - row "00:32 dribble 1.00 -- 32.1s - 33.8s" [ref=e169]:
+              - cell "00:32" [ref=e170]
+              - cell "dribble" [ref=e171]:
+                - generic [ref=e172]: dribble
+              - cell "1.00" [ref=e173]
+              - cell "--" [ref=e174]
+              - cell "32.1s - 33.8s"
+            - row "00:33 buildup 0.71 12 33.0s - 37.5s" [ref=e175]:
+              - cell "00:33" [ref=e176]
+              - cell "buildup" [ref=e177]:
+                - generic [ref=e178]: buildup
+              - cell "0.71" [ref=e179]
+              - cell "12" [ref=e180]
+              - cell "33.0s - 37.5s"
+            - row "00:33 buildup 1.00 -- 33.3s - 35.0s" [ref=e181]:
+              - cell "00:33" [ref=e182]
+              - cell "buildup" [ref=e183]:
+                - generic [ref=e184]: buildup
+              - cell "1.00" [ref=e185]
+              - cell "--" [ref=e186]
+              - cell "33.3s - 35.0s"
+            - row "00:35 buildup 0.99 -- 35.1s - 36.8s" [ref=e187]:
+              - cell "00:35" [ref=e188]
+              - cell "buildup" [ref=e189]:
+                - generic [ref=e190]: buildup
+              - cell "0.99" [ref=e191]
+              - cell "--" [ref=e192]
+              - cell "35.1s - 36.8s"
+            - row "00:37 buildup 0.99 -- 37.8s - 39.5s" [ref=e193]:
+              - cell "00:37" [ref=e194]
+              - cell "buildup" [ref=e195]:
+                - generic [ref=e196]: buildup
+              - cell "0.99" [ref=e197]
+              - cell "--" [ref=e198]
+              - cell "37.8s - 39.5s"
+            - row "00:40 buildup 1.00 -- 40.5s - 42.2s" [ref=e199]:
+              - cell "00:40" [ref=e200]
+              - cell "buildup" [ref=e201]:
+                - generic [ref=e202]: buildup
+              - cell "1.00" [ref=e203]
+              - cell "--" [ref=e204]
+              - cell "40.5s - 42.2s"
+            - row "00:42 buildup 0.99 -- 42.3s - 44.0s" [ref=e205]:
+              - cell "00:42" [ref=e206]
+              - cell "buildup" [ref=e207]:
+                - generic [ref=e208]: buildup
+              - cell "0.99" [ref=e209]
+              - cell "--" [ref=e210]
+              - cell "42.3s - 44.0s"
+            - row "00:44 buildup 0.99 -- 44.1s - 45.8s" [ref=e211]:
+              - cell "00:44" [ref=e212]
+              - cell "buildup" [ref=e213]:
+                - generic [ref=e214]: buildup
+              - cell "0.99" [ref=e215]
+              - cell "--" [ref=e216]
+              - cell "44.1s - 45.8s"
+            - row "00:46 buildup 1.00 -- 46.2s - 47.9s" [ref=e217]:
+              - cell "00:46" [ref=e218]
+              - cell "buildup" [ref=e219]:
+                - generic [ref=e220]: buildup
+              - cell "1.00" [ref=e221]
+              - cell "--" [ref=e222]
+              - cell "46.2s - 47.9s"
+            - row "00:47 shot 0.88 5 47.3s - 49.0s" [ref=e223]:
+              - cell "00:47" [ref=e224]
+              - cell "shot" [ref=e225]:
+                - generic [ref=e226]: shot
+              - cell "0.88" [ref=e227]
+              - cell "5" [ref=e228]
+              - cell "47.3s - 49.0s"
+            - row "00:48 buildup 0.99 -- 48.6s - 50.3s" [ref=e229]:
+              - cell "00:48" [ref=e230]
+              - cell "buildup" [ref=e231]:
+                - generic [ref=e232]: buildup
+              - cell "0.99" [ref=e233]
+              - cell "--" [ref=e234]
+              - cell "48.6s - 50.3s"
+            - row "00:49 save 0.79 1 49.0s - 50.5s" [ref=e235]:
+              - cell "00:49" [ref=e236]
+              - cell "save" [ref=e237]:
+                - generic [ref=e238]: save
+              - cell "0.79" [ref=e239]
+              - cell "1" [ref=e240]
+              - cell "49.0s - 50.5s"
+            - row "00:50 buildup 1.00 -- 50.4s - 52.1s" [ref=e241]:
+              - cell "00:50" [ref=e242]
+              - cell "buildup" [ref=e243]:
+                - generic [ref=e244]: buildup
+              - cell "1.00" [ref=e245]
+              - cell "--" [ref=e246]
+              - cell "50.4s - 52.1s"
+            - row "00:52 buildup 1.00 -- 52.2s - 53.9s" [ref=e247]:
+              - cell "00:52" [ref=e248]
+              - cell "buildup" [ref=e249]:
+                - generic [ref=e250]: buildup
+              - cell "1.00" [ref=e251]
+              - cell "--" [ref=e252]
+              - cell "52.2s - 53.9s"
+            - row "00:54 buildup 0.99 -- 54.9s - 56.6s" [ref=e253]:
+              - cell "00:54" [ref=e254]
+              - cell "buildup" [ref=e255]:
+                - generic [ref=e256]: buildup
+              - cell "0.99" [ref=e257]
+              - cell "--" [ref=e258]
+              - cell "54.9s - 56.6s"
+            - row "00:57 buildup 1.00 -- 57.6s - 59.3s" [ref=e259]:
+              - cell "00:57" [ref=e260]
+              - cell "buildup" [ref=e261]:
+                - generic [ref=e262]: buildup
+              - cell "1.00" [ref=e263]
+              - cell "--" [ref=e264]
+              - cell "57.6s - 59.3s"
+            - row "00:58 pass 0.73 8 58.2s - 59.8s" [ref=e265]:
+              - cell "00:58" [ref=e266]
+              - cell "pass" [ref=e267]:
+                - generic [ref=e268]: pass
+              - cell "0.73" [ref=e269]
+              - cell "8" [ref=e270]
+              - cell "58.2s - 59.8s"
+            - row "00:58 dribble 1.00 -- 58.8s - 60.5s" [ref=e271]:
+              - cell "00:58" [ref=e272]
+              - cell "dribble" [ref=e273]:
+                - generic [ref=e274]: dribble
+              - cell "1.00" [ref=e275]
+              - cell "--" [ref=e276]
+              - cell "58.8s - 60.5s"
+            - row "01:00 buildup 1.00 -- 60.0s - 61.7s" [ref=e277]:
+              - cell "01:00" [ref=e278]
+              - cell "buildup" [ref=e279]:
+                - generic [ref=e280]: buildup
+              - cell "1.00" [ref=e281]
+              - cell "--" [ref=e282]
+              - cell "60.0s - 61.7s"
+            - row "01:01 buildup 1.00 -- 61.8s - 63.5s" [ref=e283]:
+              - cell "01:01" [ref=e284]
+              - cell "buildup" [ref=e285]:
+                - generic [ref=e286]: buildup
+              - cell "1.00" [ref=e287]
+              - cell "--" [ref=e288]
+              - cell "61.8s - 63.5s"
+            - row "01:03 buildup 1.00 -- 63.6s - 65.9s" [ref=e289]:
+              - cell "01:03" [ref=e290]
+              - cell "buildup" [ref=e291]:
+                - generic [ref=e292]: buildup
+              - cell "1.00" [ref=e293]
+              - cell "--" [ref=e294]
+              - cell "63.6s - 65.9s"
+            - row "01:07 buildup 1.00 -- 67.1s - 68.9s" [ref=e295]:
+              - cell "01:07" [ref=e296]
+              - cell "buildup" [ref=e297]:
+                - generic [ref=e298]: buildup
+              - cell "1.00" [ref=e299]
+              - cell "--" [ref=e300]
+              - cell "67.1s - 68.9s"
+            - row "01:08 buildup 1.00 -- 68.9s - 70.7s" [ref=e301]:
+              - cell "01:08" [ref=e302]
+              - cell "buildup" [ref=e303]:
+                - generic [ref=e304]: buildup
+              - cell "1.00" [ref=e305]
+              - cell "--" [ref=e306]
+              - cell "68.9s - 70.7s"
+            - row "01:11 buildup 1.00 -- 71.3s - 73.1s" [ref=e307]:
+              - cell "01:11" [ref=e308]
+              - cell "buildup" [ref=e309]:
+                - generic [ref=e310]: buildup
+              - cell "1.00" [ref=e311]
+              - cell "--" [ref=e312]
+              - cell "71.3s - 73.1s"
+            - row "01:12 turnover 0.69 11 72.5s - 74.2s" [ref=e313]:
+              - cell "01:12" [ref=e314]
+              - cell "turnover" [ref=e315]:
+                - generic [ref=e316]: turnover
+              - cell "0.69" [ref=e317]
+              - cell "11" [ref=e318]
+              - cell "72.5s - 74.2s"
+            - row "01:13 buildup 0.98 -- 73.4s - 75.2s" [ref=e319]:
+              - cell "01:13" [ref=e320]
+              - cell "buildup" [ref=e321]:
+                - generic [ref=e322]: buildup
+              - cell "0.98" [ref=e323]
+              - cell "--" [ref=e324]
+              - cell "73.4s - 75.2s"
+            - row "01:15 buildup 1.00 -- 75.2s - 77.0s" [ref=e325]:
+              - cell "01:15" [ref=e326]
+              - cell "buildup" [ref=e327]:
+                - generic [ref=e328]: buildup
+              - cell "1.00" [ref=e329]
+              - cell "--" [ref=e330]
+              - cell "75.2s - 77.0s"
+            - row "01:16 dribble 1.00 -- 76.7s - 78.5s" [ref=e331]:
+              - cell "01:16" [ref=e332]
+              - cell "dribble" [ref=e333]:
+                - generic [ref=e334]: dribble
+              - cell "1.00" [ref=e335]
+              - cell "--" [ref=e336]
+              - cell "76.7s - 78.5s"
+            - row "01:17 buildup 0.71 -- 77.6s - 79.4s" [ref=e337]:
+              - cell "01:17" [ref=e338]
+              - cell "buildup" [ref=e339]:
+                - generic [ref=e340]: buildup
+              - cell "0.71" [ref=e341]
+              - cell "--" [ref=e342]
+              - cell "77.6s - 79.4s"
+            - row "01:19 dribble 1.00 -- 79.4s - 81.2s" [ref=e343]:
+              - cell "01:19" [ref=e344]
+              - cell "dribble" [ref=e345]:
+                - generic [ref=e346]: dribble
+              - cell "1.00" [ref=e347]
+              - cell "--" [ref=e348]
+              - cell "79.4s - 81.2s"
+            - row "01:20 buildup 1.00 -- 80.3s - 82.1s" [ref=e349]:
+              - cell "01:20" [ref=e350]
+              - cell "buildup" [ref=e351]:
+                - generic [ref=e352]: buildup
+              - cell "1.00" [ref=e353]
+              - cell "--" [ref=e354]
+              - cell "80.3s - 82.1s"
+            - row "01:23 buildup 0.99 -- 83.3s - 85.1s" [ref=e355]:
+              - cell "01:23" [ref=e356]
+              - cell "buildup" [ref=e357]:
+                - generic [ref=e358]: buildup
+              - cell "0.99" [ref=e359]
+              - cell "--" [ref=e360]
+              - cell "83.3s - 85.1s"
+            - row "01:25 buildup 0.99 -- 85.7s - 87.5s" [ref=e361]:
+              - cell "01:25" [ref=e362]
+              - cell "buildup" [ref=e363]:
+                - generic [ref=e364]: buildup
+              - cell "0.99" [ref=e365]
+              - cell "--" [ref=e366]
+              - cell "85.7s - 87.5s"
+            - row "01:27 buildup 0.99 -- 87.5s - 89.3s" [ref=e367]:
+              - cell "01:27" [ref=e368]
+              - cell "buildup" [ref=e369]:
+                - generic [ref=e370]: buildup
+              - cell "0.99" [ref=e371]
+              - cell "--" [ref=e372]
+              - cell "87.5s - 89.3s"
+            - row "01:28 dribble 0.84 7 88.0s - 91.0s" [ref=e373]:
+              - cell "01:28" [ref=e374]
+              - cell "dribble" [ref=e375]:
+                - generic [ref=e376]: dribble
+              - cell "0.84" [ref=e377]
+              - cell "7" [ref=e378]
+              - cell "88.0s - 91.0s"
+            - row "01:29 buildup 0.98 -- 89.3s - 91.1s" [ref=e379]:
+              - cell "01:29" [ref=e380]
+              - cell "buildup" [ref=e381]:
+                - generic [ref=e382]: buildup
+              - cell "0.98" [ref=e383]
+              - cell "--" [ref=e384]
+              - cell "89.3s - 91.1s"
+            - row "01:31 buildup 1.00 -- 91.1s - 92.9s" [ref=e385]:
+              - cell "01:31" [ref=e386]
+              - cell "buildup" [ref=e387]:
+                - generic [ref=e388]: buildup
+              - cell "1.00" [ref=e389]
+              - cell "--" [ref=e390]
+              - cell "91.1s - 92.9s"
+            - row "01:32 buildup 1.00 -- 92.9s - 94.7s" [ref=e391]:
+              - cell "01:32" [ref=e392]
+              - cell "buildup" [ref=e393]:
+                - generic [ref=e394]: buildup
+              - cell "1.00" [ref=e395]
+              - cell "--" [ref=e396]
+              - cell "92.9s - 94.7s"
+            - row "01:35 buildup 1.00 -- 95.3s - 97.1s" [ref=e397]:
+              - cell "01:35" [ref=e398]
+              - cell "buildup" [ref=e399]:
+                - generic [ref=e400]: buildup
+              - cell "1.00" [ref=e401]
+              - cell "--" [ref=e402]
+              - cell "95.3s - 97.1s"
+            - row "01:37 buildup 0.99 -- 97.1s - 98.9s" [ref=e403]:
+              - cell "01:37" [ref=e404]
+              - cell "buildup" [ref=e405]:
+                - generic [ref=e406]: buildup
+              - cell "0.99" [ref=e407]
+              - cell "--" [ref=e408]
+              - cell "97.1s - 98.9s"
+            - row "01:38 buildup 0.99 -- 98.9s - 100.7s" [ref=e409]:
+              - cell "01:38" [ref=e410]
+              - cell "buildup" [ref=e411]:
+                - generic [ref=e412]: buildup
+              - cell "0.99" [ref=e413]
+              - cell "--" [ref=e414]
+              - cell "98.9s - 100.7s"
+            - row "01:41 buildup 1.00 -- 101.6s - 103.4s" [ref=e415]:
+              - cell "01:41" [ref=e416]
+              - cell "buildup" [ref=e417]:
+                - generic [ref=e418]: buildup
+              - cell "1.00" [ref=e419]
+              - cell "--" [ref=e420]
+              - cell "101.6s - 103.4s"
+            - row "01:43 buildup 1.00 -- 103.4s - 105.2s" [ref=e421]:
+              - cell "01:43" [ref=e422]
+              - cell "buildup" [ref=e423]:
+                - generic [ref=e424]: buildup
+              - cell "1.00" [ref=e425]
+              - cell "--" [ref=e426]
+              - cell "103.4s - 105.2s"
+            - row "01:43 shot 0.91 5 103.5s - 105.0s" [ref=e427]:
+              - cell "01:43" [ref=e428]
+              - cell "shot" [ref=e429]:
+                - generic [ref=e430]: shot
+              - cell "0.91" [ref=e431]
+              - cell "5" [ref=e432]
+              - cell "103.5s - 105.0s"
+            - row "01:46 buildup 1.00 -- 106.4s - 108.2s" [ref=e433]:
+              - cell "01:46" [ref=e434]
+              - cell "buildup" [ref=e435]:
+                - generic [ref=e436]: buildup
+              - cell "1.00" [ref=e437]
+              - cell "--" [ref=e438]
+              - cell "106.4s - 108.2s"
+            - row "01:48 buildup 1.00 -- 108.2s - 110.0s" [ref=e439]:
+              - cell "01:48" [ref=e440]
+              - cell "buildup" [ref=e441]:
+                - generic [ref=e442]: buildup
+              - cell "1.00" [ref=e443]
+              - cell "--" [ref=e444]
+              - cell "108.2s - 110.0s"
+            - row "01:50 buildup 1.00 -- 110.6s - 112.4s" [ref=e445]:
+              - cell "01:50" [ref=e446]
+              - cell "buildup" [ref=e447]:
+                - generic [ref=e448]: buildup
+              - cell "1.00" [ref=e449]
+              - cell "--" [ref=e450]
+              - cell "110.6s - 112.4s"
+            - row "01:53 buildup 1.00 -- 113.3s - 115.1s" [ref=e451]:
+              - cell "01:53" [ref=e452]
+              - cell "buildup" [ref=e453]:
+                - generic [ref=e454]: buildup
+              - cell "1.00" [ref=e455]
+              - cell "--" [ref=e456]
+              - cell "113.3s - 115.1s"
+            - row "01:55 buildup 1.00 -- 115.1s - 116.9s" [ref=e457]:
+              - cell "01:55" [ref=e458]
+              - cell "buildup" [ref=e459]:
+                - generic [ref=e460]: buildup
+              - cell "1.00" [ref=e461]
+              - cell "--" [ref=e462]
+              - cell "115.1s - 116.9s"
+      - generic [ref=e463]:
+        - generic [ref=e464]:
+          - heading "Clips" [level=2] [ref=e465]
+          - generic [ref=e466]: "30"
+        - generic [ref=e468]:
+          - article [ref=e469]:
+            - generic [ref=e471]:
+              - heading "00:03 - 00:07" [level=3] [ref=e472]
+              - generic [ref=e473]: 4.5s clip
+          - article [ref=e474]:
+            - generic [ref=e476]:
+              - heading "00:03 - 00:08" [level=3] [ref=e477]
+              - generic [ref=e478]: 4.7s clip
+          - article [ref=e479]:
+            - generic [ref=e481]:
+              - heading "00:05 - 00:10" [level=3] [ref=e482]
+              - generic [ref=e483]: 4.7s clip
+          - article [ref=e484]:
+            - generic [ref=e486]:
+              - heading "00:09 - 00:15" [level=3] [ref=e487]
+              - generic [ref=e488]: 5.6s clip
+          - article [ref=e489]:
+            - generic [ref=e491]:
+              - heading "00:14 - 00:18" [level=3] [ref=e492]
+              - generic [ref=e493]: 4.7s clip
+          - article [ref=e494]:
+            - generic [ref=e496]:
+              - heading "00:22 - 00:27" [level=3] [ref=e497]
+              - generic [ref=e498]: 4.9s clip
+          - article [ref=e499]:
+            - generic [ref=e501]:
+              - heading "00:27 - 00:32" [level=3] [ref=e502]
+              - generic [ref=e503]: 4.7s clip
+          - article [ref=e504]:
+            - generic [ref=e506]:
+              - heading "00:28 - 00:33" [level=3] [ref=e507]
+              - generic [ref=e508]: 4.7s clip
+          - article [ref=e509]:
+            - generic [ref=e511]:
+              - heading "00:30 - 00:35" [level=3] [ref=e512]
+              - generic [ref=e513]: 4.7s clip
+          - article [ref=e514]:
+            - generic [ref=e516]:
+              - heading "00:31 - 00:39" [level=3] [ref=e517]
+              - generic [ref=e518]: 7.5s clip
+          - article [ref=e519]:
+            - generic [ref=e521]:
+              - heading "00:31 - 00:36" [level=3] [ref=e522]
+              - generic [ref=e523]: 4.7s clip
+          - article [ref=e524]:
+            - generic [ref=e526]:
+              - heading "00:45 - 00:50" [level=3] [ref=e527]
+              - generic [ref=e528]: 4.7s clip
+          - article [ref=e529]:
+            - generic [ref=e531]:
+              - heading "00:47 - 00:52" [level=3] [ref=e532]
+              - generic [ref=e533]: 4.5s clip
+          - article [ref=e534]:
+            - generic [ref=e536]:
+              - heading "00:50 - 00:55" [level=3] [ref=e537]
+              - generic [ref=e538]: 4.7s clip
+          - article [ref=e539]:
+            - generic [ref=e541]:
+              - heading "00:56 - 01:01" [level=3] [ref=e542]
+              - generic [ref=e543]: 4.6s clip
+          - article [ref=e544]:
+            - generic [ref=e546]:
+              - heading "00:58 - 01:03" [level=3] [ref=e547]
+              - generic [ref=e548]: 4.7s clip
+          - article [ref=e549]:
+            - generic [ref=e551]:
+              - heading "01:00 - 01:05" [level=3] [ref=e552]
+              - generic [ref=e553]: 4.7s clip
+          - article [ref=e554]:
+            - generic [ref=e556]:
+              - heading "01:07 - 01:12" [level=3] [ref=e557]
+              - generic [ref=e558]: 4.7s clip
+          - article [ref=e559]:
+            - generic [ref=e561]:
+              - heading "01:09 - 01:14" [level=3] [ref=e562]
+              - generic [ref=e563]: 4.7s clip
+          - article [ref=e564]:
+            - generic [ref=e566]:
+              - heading "01:11 - 01:15" [level=3] [ref=e567]
+              - generic [ref=e568]: 4.7s clip
+          - article [ref=e569]:
+            - generic [ref=e571]:
+              - heading "01:15 - 01:19" [level=3] [ref=e572]
+              - generic [ref=e573]: 4.7s clip
+          - article [ref=e574]:
+            - generic [ref=e576]:
+              - heading "01:17 - 01:22" [level=3] [ref=e577]
+              - generic [ref=e578]: 4.7s clip
+          - article [ref=e579]:
+            - generic [ref=e581]:
+              - heading "01:26 - 01:32" [level=3] [ref=e582]
+              - generic [ref=e583]: 6.0s clip
+          - article [ref=e584]:
+            - generic [ref=e586]:
+              - heading "01:29 - 01:34" [level=3] [ref=e587]
+              - generic [ref=e588]: 4.7s clip
+          - article [ref=e589]:
+            - generic [ref=e591]:
+              - heading "01:31 - 01:36" [level=3] [ref=e592]
+              - generic [ref=e593]: 4.7s clip
+          - article [ref=e594]:
+            - generic [ref=e596]:
+              - heading "01:33 - 01:38" [level=3] [ref=e597]
+              - generic [ref=e598]: 4.7s clip
+          - article [ref=e599]:
+            - generic [ref=e601]:
+              - heading "01:41 - 01:46" [level=3] [ref=e602]
+              - generic [ref=e603]: 4.7s clip
+          - article [ref=e604]:
+            - generic [ref=e606]:
+              - heading "01:42 - 01:46" [level=3] [ref=e607]
+              - generic [ref=e608]: 4.5s clip
+          - article [ref=e609]:
+            - generic [ref=e611]:
+              - heading "01:44 - 01:49" [level=3] [ref=e612]
+              - generic [ref=e613]: 4.7s clip
+          - article [ref=e614]:
+            - generic [ref=e616]:
+              - heading "01:49 - 01:53" [level=3] [ref=e617]
+              - generic [ref=e618]: 4.7s clip
+    - generic [ref=e619]:
+      - generic [ref=e620]:
+        - generic [ref=e621]:
+          - heading "Ask" [level=2] [ref=e622]
+          - generic [ref=e623]: failed
+        - generic [ref=e624]:
+          - generic [ref=e625]:
+            - generic [ref=e626]: Question
+            - textbox "Question" [active] [ref=e627]: When did the attack break down?
+          - button "Ask" [ref=e629] [cursor=pointer]
+          - generic [ref=e630]: Video processing not complete
+      - generic [ref=e632]:
+        - heading "Evidence" [level=2] [ref=e633]
+        - generic [ref=e634]: "0"

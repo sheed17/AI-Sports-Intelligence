@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  lint-and-type:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-dev-${{ hashFiles('requirements-dev.txt') }}
+      - run: pip install ruff mypy
+      - run: ruff check backend/ cv/ ml/ evals/ tests/
+      - run: mypy backend/ cv/ ml/ --ignore-missing-imports
+
+  unit-tests:
+    name: Unit & Smoke Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+      - name: Install CPU-only torch (faster in CI)
+        run: pip install torch==2.5.1+cpu torchvision==0.20.1+cpu --index-url https://download.pytorch.org/whl/cpu
+      - name: Install dependencies (no torch re-install)
+        run: pip install -r requirements-dev.txt --no-deps || pip install -r requirements-dev.txt
+      - name: Run unit tests
+        env:
+          ENVIRONMENT: test
+          DATABASE_URL: "postgresql+asyncpg://filmroom:filmroom@localhost:5432/filmroom_test"
+          SYNC_DATABASE_URL: "postgresql://filmroom:filmroom@localhost:5432/filmroom_test"
+          REDIS_URL: "redis://localhost:6379/2"
+          SKIP_YOLO_SMOKE: "1"
+        run: pytest tests/unit/ tests/smoke/ -v --tb=short --ignore=tests/smoke/test_yolo_smoke.py
+
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build backend image
+        run: docker build -f docker/Dockerfile.backend -t ai-film-room-backend:ci .
+      - name: Build worker image
+        run: docker build -f docker/Dockerfile.worker -t ai-film-room-worker:ci .

@@ -1,0 +1,37 @@
+extract_frames:
+  sample_rate: 3          # extract every Nth frame
+
+detect:
+  model: yolov8n.pt
+  confidence_threshold: 0.3
+  batch_size: 16
+
+track:
+  # ByteTrack defaults via supervision
+
+features:
+  window_size: 30
+  window_stride: 5
+
+train:
+  features_dir: data/features
+  annotations_dir: data/annotations
+  output_dir: ml/artifacts
+  mlflow_tracking_uri: file:///app/mlruns
+  # Model architecture
+  hidden_size: 128
+  num_layers: 2
+  dropout: 0.3
+  # Training
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  epochs: 50
+  patience: 10
+  # Splits
+  val_split: 0.15
+  test_split: 0.15
+
+inference:
+  confidence_threshold: 0.65
+  top_n_clips: 20
